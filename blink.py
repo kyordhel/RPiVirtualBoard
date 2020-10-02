@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ## ###############################################
 #
-# pwm.py
+# blink.py
 # Blinks a led on pin 32 using Raspberry Pi
 #
 # Autor: Mauricio Matamoros
@@ -15,27 +15,26 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-# Importa la librería de control del GPIO de la Raspberry Pi
+# Import Raspberry Pi's GPIO control library
 import RPi.GPIO as GPIO
-# Importa la función sleep del módulo time
+# Imports sleep functon
 from time import sleep
-# Inicia la tarjeta virtual
+# Initializes virtual board (comment out for hardware deploy)
 import virtualboard
 
-# Desactivar advertencias (warnings)
+# Disable warnings
 # GPIO.setwarnings(False)
-# Configurar la librería para usar el número de pin.
-# Llame GPIO.setmode(GPIO.BCM) para usar el canal SOC definido por Broadcom
+# Set up Rpi.GPIO library to use physical pin numbers
 GPIO.setmode(GPIO.BOARD)
 
-# Configurar el pin 32 como salida y habilitar en bajo
+# Set up pin no. 32 as output and default it to low
 GPIO.setup(32, GPIO.OUT, initial=GPIO.LOW)
 
 
 
-# El siguiente código hace parpadear el led
-while True: # Bucle infinito
+# Blink the led
+while True: # Forever
+	sleep(0.5)                 # Wait 500ms
+	GPIO.output(32, GPIO.HIGH) # Turn led on
 	sleep(0.5)                 # Espera 500ms
-	GPIO.output(32, GPIO.HIGH) # Enciende el led
-	sleep(0.5)                 # Espera 500ms
-	GPIO.output(32, GPIO.LOW)  # Apaga el led
+	GPIO.output(32, GPIO.LOW)  # Turn led off
