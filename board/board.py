@@ -28,39 +28,6 @@ _img_path = path.join(path.dirname(path.realpath(__file__)), 'img')
 def _img(file_name):
 	return path.join(_img_path, file_name)
 
-# class LED:
-# 	def __init__(self):
-# 		self.brightness = 0
-# 		self._bg = PhotoImage(file=_img('led-background.png'))
-# 		self._fg = PhotoImage(file=_img('led-foreground.png'))
-# 		self._bb = Image.open(_img('led-bright.png')).convert('RGBA')
-# 		self._eh = ImageEnhance.Brightness(self._bb)
-# 		# self.br = PhotoImage(file="img/led-bright.png")
-# 	# end def
-#
-# 	@property
-# 	def brightness(self):
-# 		return self._brightness
-# 	# end def
-#
-# 	@brightness.setter
-# 	def brightness(self, x):
-# 		if x < 0:
-# 			x = 0
-# 		elif x > 1:
-# 			x = 1
-# 		self._brightness = x
-# 		self._factor = 0.2 + 0.8 * x
-# 	# end def
-#
-# 	def draw(self, canvas, xpos, ypos):
-# 		br = self._eh.enhance(self._factor)
-# 		self._br = ImageTk.PhotoImage(br)
-# 		canvas.create_image(xpos, ypos, anchor=NW, image=self._bg)
-# 		canvas.create_image(xpos, ypos, anchor=NW, image=self._br)
-# 		canvas.create_image(xpos, ypos, anchor=NW, image=self._fg)
-# 	# end def
-
 class LED:
 	def __init__(self):
 		self._on = False
@@ -210,7 +177,7 @@ class Board:
 		self.canvas = Canvas(self.gui, width=510, height=270, bg='#296e01', bd=0, highlightthickness=0, relief='ridge')
 		self.canvas.pack()
 		self._draw_canvas()
-		self.canvas.after(200, self._redraw)
+		self.canvas.after(1, self._redraw)
 	# end def
 
 	def _draw_canvas(self):
