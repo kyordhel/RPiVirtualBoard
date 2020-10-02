@@ -4,6 +4,9 @@
 !.gitignore
 !.gitattributes
 !LICENSE
+!requirements.txt
+!Pipfile
+!Pipfile.lock
 # And these file types
 !*.py
 # Even if they are in subdirectories
