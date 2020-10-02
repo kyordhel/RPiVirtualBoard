@@ -189,16 +189,11 @@ class GPIO_PIN:
 
 	@property
 	def value(self):
-		if io_mode is OUT:
 			return self._buffer
-		else:
-			return self._input_stream()
 
 	@value.setter
 	def value(self, value):
-		if self.io_mode is OUT:
-			self._buffer = value
-			# print('pin {} set to {}'.format(self.gpio_pin_num, value))
+		self.write(value)
 
 	def _dump(self, value):
 		pass
@@ -207,7 +202,8 @@ class GPIO_PIN:
 		return self._buffer
 
 	def write(self, value):
-		self._buffer = 1 if value else 0
+		if self.io_mode is OUT:
+			self._buffer = 1 if value else 0
 
 	def __repr__(self):
 		if self.gpio_pin_num < 10:
