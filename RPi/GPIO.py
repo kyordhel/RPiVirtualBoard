@@ -135,14 +135,14 @@ class PWM:
 		flank_time = 0
 		# run until stopped
 		while self._running:
-			now = int(round(time() * 1000))
+			now = int(time() * 1000)
 			if now >= flank_time:
 				self._pin.value = 0
 			if now >= reset_time:
 				self._pin.value = 1
-				reset_time = int(now + 10.0 * self._frequency)
-				flank_time = int(now + 10.0 * self._frequency * self._duty_cycle)
-				sleep(0.001)
+				reset_time = int(now + 1000.0 / self._frequency)
+				flank_time = int(now + self._duty_cycle * 10.0 / self._frequency)
+			sleep(0.001)
 		#end while
 	#end def
 
