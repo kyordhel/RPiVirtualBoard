@@ -112,7 +112,7 @@ class PWM:
 		self._thread = None
 		self._running = False
 		self._duty_cycle = 0
-		self._frequency = 1
+		self._frequency = frequency
 
 		if _io_mode == BOARD:
 			channel = _board2bcm(channel)
@@ -138,7 +138,7 @@ class PWM:
 			now = int(time() * 1000)
 			if now >= flank_time:
 				self._pin.value = 0
-			if now >= reset_time:
+			if now >= reset_time and self._frequency > 0:
 				self._pin.value = 1
 				reset_time = int(now + 1000.0 / self._frequency)
 				flank_time = int(now + self._duty_cycle * 10.0 / self._frequency)
@@ -161,14 +161,19 @@ class PWM:
 	#end def
 
 	def ChangeFrequency(self, freq):
-		if not isinstance(freq, int) or not isinstance(freq, float):
-			raise ArgumentException("Invalid type")
+		if not isinstance(freq, int) and not isinstance(freq, float):
+			raise TypeError("Invalid type")
+		if freq < 0:
+			raise ValueError("The frequency must be a positive number")
+		elif freq == 0:
+			self.stop()
+
 		self._frequency = freq
 	#end def
 
 	def ChangeDutyCycle(self, dc):
 		if dc < 0 or dc > 100:
-			raise ArgumentException("dc out of range")
+			raise ValueError("dc out of range")
 		self._duty_cycle = dc
 	#end def
 #end class
